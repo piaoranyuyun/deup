@@ -4,7 +4,7 @@
  * @class Missav
  * @extends {Deup}
  * @author ZiHang Gao
- * @see https://missav.com
+ * @see https://missav.ai
  */
 class Missav extends Deup {
   /**
@@ -14,8 +14,8 @@ class Missav extends Deup {
    */
   config = {
     name: 'Miss AV',
-    logo: 'https://missav.com/img/favicon.png',
-    layout: 'cover',
+    logo: 'https://missav.ai/img/favicon.png',
+    layout: 'poster',
     pageSize: 12, // 每页显示的数量
   };
 
@@ -28,7 +28,7 @@ class Missav extends Deup {
    * @returns {Promise<{headers: {Referer: string, "User-Agent": string}, name: *, id: string, type: string, url: string}>}
    */
   async get(object) {
-    const url = `https://missav.com/cn/${object.id}`;
+    const url = `https://missav.ai/${object.id}`;
     const $ = $cheerio.load((await $axios.get(url)).data);
 
     // Get the video url
@@ -61,7 +61,7 @@ class Missav extends Deup {
    */
   async list(object = null, offset = 0, limit = 20) {
     const page = Math.floor(offset / limit) + 1;
-    const response = await $axios.get(`https://missav.com/cn/new?page=${page}`);
+    const response = await $axios.get(`https://missav.ai/new?page=${page}`);
     return this.parseVideoList(response.data);
   }
 
@@ -77,7 +77,7 @@ class Missav extends Deup {
   async search(object, keyword, offset, limit) {
     const page = Math.floor(offset / limit) + 1;
     const response = await $axios.get(
-      `https://missav.com/cn/search/${keyword}?page=${page}`,
+      `https://missav.ai/search/${keyword}?page=${page}`,
     );
     return this.parseVideoList(response.data);
   }
